@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # Descriptor conforms to version v1 of Kubernetes API
+kind: DaemonSet # Select Pod resource
+metadata:
+  name: monitor # The name of the pod
+spec:
+  selector: # The pod selector determining what pods the RC is operating on
+    matchLabels:
+      app: ssd-monitor # label value
+  template: # The pod template
+    metadata:
+      labels:
+        app: ssd-monitor # label value
+    spec:
+      nodeSelector:
+        disk: ssd
+      containers:
+        - name: main
+          image: luksa/ssd-monitor
+
